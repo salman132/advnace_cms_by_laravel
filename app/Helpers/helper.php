@@ -302,20 +302,14 @@ function pay_with_stripe(){
     }
 }
 
-function permission($role_id,$perm_id){
+function permission($role_id,$perm_id) : bool {
 
     $perm = \App\Models\Permission::where('role_id',$role_id)->whereIn('perm_id',explode(',',$perm_id))->first();
+    return !empty($perm);
 
-
-    if(!empty($perm)){
-        return true;
-    }
-    else{
-        return false;
-    }
 }
 
-function perm_deny($role_id,$perm_id){
+function perm_deny($role_id,$perm_id): bool {
 
     $perm = \App\Models\Permission::where('role_id',$role_id)->first();
     return in_array($perm_id,explode(",",$perm->perm_id));

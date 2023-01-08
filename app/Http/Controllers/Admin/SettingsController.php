@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Frontend;
-use App\GeneralSetting;
+use App\Models\Frontend;
+use App\Models\GeneralSetting;
 use App\Http\Controllers\Controller;
-use App\Permission;
-use App\Role;
-use App\Timezone;
+use App\Models\Permission;
+use App\Models\Role;
+use App\Models\Timezone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
