@@ -21,7 +21,7 @@
                     </thead>
 
                     <tbody>
-                        @if(!empty($categories) && count($categories) > 0)
+                        @if(!empty($categories))
 
                             @foreach($categories as $key => $category)
 

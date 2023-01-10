@@ -62,7 +62,6 @@ class LanguageController extends Controller
 
         $language->code = strtolower($request->code);
 
-
         if($request->hasFile('icon')){
             $language->icon = file_upload($request->icon,'uploads/language/',110,98);
         }
@@ -76,30 +75,21 @@ class LanguageController extends Controller
                 $langFind->is_default =0;
                 $langFind->save();
             }
-
             $language->is_default =1;
         }
 
         $file = resource_path('lang') .'\default.json';
 
-
         $json_file = resource_path('lang/') . strtolower($request->code).".json";
-
         $data = file_get_contents($file);
-
         if(file_exists($json_file)){
             Session::flash('danger','File is already exist');
             return redirect()->back();
 
         }
-        else{
-
-            fopen($json_file,"w+");
-            File::put($json_file,$data);
-            $language->source = $json_file;
-
-
-        }
+        fopen($json_file,"w+");
+        File::put($json_file,$data);
+        $language->source = $json_file;
         $language->save();
         Session::flash('success','You added a Language');
         return redirect()->back();
@@ -107,12 +97,7 @@ class LanguageController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
 
@@ -122,10 +107,6 @@ class LanguageController extends Controller
 
         $words = json_decode($json);
         $list_lang = Language::all();
-
-
-
-
         return view('admin.dashboard.language.show',compact('language','words','list_lang'));
     }
 

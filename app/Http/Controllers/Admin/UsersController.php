@@ -28,10 +28,7 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::where('is_admin','<>',1)->where('id','<>',Auth::id())->with('role')->paginate(50);
-
-
         $roles = Role::all();
-
         return view('admin.dashboard.users.index',compact('users','roles'));
     }
 
@@ -46,7 +43,6 @@ class UsersController extends Controller
             ->where('id','<>',Auth::id())
             ->where('is_banned',0)->with('role')
             ->paginate(50);
-
         return view('admin.dashboard.users.active',compact('users'));
     }
 
@@ -107,11 +103,9 @@ class UsersController extends Controller
         $user->role_id = $request->role_id;
 
         if($request->hasFile('profile_pic')){
-
            $user->profile_pic = file_upload($request->profile_pic,'uploads/users/profile/','270','250');
         }
         $user->save();
-
         Session::flash('success','You added a User');
         return redirect()->back();
 

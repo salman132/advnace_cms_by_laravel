@@ -14,12 +14,12 @@
                 {{csrf_field()}}
                 <div class="form-group">
                     <label>Subject <span class="text-danger">*</span></label>
-                    <input type="text" name="subject" class="form-control" value="{{$template->value->subject}}">
+                    <input type="text" name="subject" class="form-control" value="{{$template->value->subject ?? null }}">
                 </div>
 
                 <div class="form-group">
                     <label>Message <span class="text-danger">*</span></label>
-                    <textarea name="sms" class="form-control summernote" cols="30" rows="10">{!! $template->value->sms !!}</textarea>
+                    <textarea name="sms" class="form-control summernote" cols="30" rows="10">{!! $template->value->sms ?? null !!}</textarea>
                 </div>
 
                 <div class="form-group container">

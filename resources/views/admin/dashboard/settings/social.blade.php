@@ -57,12 +57,12 @@
                                         <tbody>
                                             @foreach($socials as $social)
                                             <tr>
-                                                <td>{{$social->value->name}}</td>
-                                                <td>{{$social->value->client_id}}</td>
-                                                <td>{{$social->value->client_secret}}</td>
-                                                <td>@if($social->value->status ==1) <div class="text-success"><span class="ik ik-star-on"></span> Active</div>  @else <div class="text-danger"><span class="ik ik-stop-circle"></span> Inactive</div> @endif</td>
+                                                <td>{{$social->value->name ?? null }}</td>
+                                                <td>{{$social->value->client_id ?? null }}</td>
+                                                <td>{{$social->value->client_secret ?? null }}</td>
+                                                <td>@if(!empty($social->value->status) && $social->value->status ==1) <div class="text-success"><span class="ik ik-star-on"></span> Active</div>  @else <div class="text-danger"><span class="ik ik-stop-circle"></span> Inactive</div> @endif</td>
                                                 <td>
-                                                    <a href="" data-toggle="modal" data-target="#socialModal" data-id="{{$social->id}}" data-title="{{$social->value->name}}" data-client="{{$social->value->client_id}}" data-secret="{{$social->value->client_secret}}" data-status="{{ $social->value->status }}" class="btn btn-info"><span class="ik ik-edit"></span></a>
+                                                    <a href="" data-toggle="modal" data-target="#socialModal" data-id="{{$social->id}}" data-title="{{$social->value->name ?? null }}" data-client="{{$social->value->client_id ?? null }}" data-secret="{{$social->value->client_secret ?? null }}" data-status="{{ $social->value->status ?? null }}" class="btn btn-info"><span class="ik ik-edit"></span></a>
                                                 </td>
                                             </tr>
                                             @endforeach

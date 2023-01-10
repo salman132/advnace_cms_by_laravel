@@ -30,7 +30,7 @@
 
                    @foreach($login_histories as $history)
                        <tr>
-                           <td>{{!empty($history->user->name) ? $history->user->name : "Not Found"}}</td>
+                           <td>{{ $history->user->name ?? "Not Found"}}</td>
                            <td>{{$history->ip_address}}</td>
                            <td>{{$history->country}}</td>
                            <td>

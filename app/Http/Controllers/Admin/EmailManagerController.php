@@ -29,7 +29,6 @@ class EmailManagerController extends Controller
     public function index()
     {
         $settings = GeneralSetting::first(['id','email','email_template']);
-
         return view('admin.dashboard.emails.design',compact('settings'));
     }
 
@@ -40,18 +39,12 @@ class EmailManagerController extends Controller
      */
     public function create()
     {
-
         $settings = GeneralSetting::first(['id','email','email_config']);
         $email_api = Frontend::where('key','email.config_api')->first();
         return view('admin.dashboard.emails.configure',compact('settings','email_api'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $perm = perm_deny(Auth::user()->role_id,7);
@@ -75,12 +68,7 @@ class EmailManagerController extends Controller
         return redirect()->back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function template()
     {
         $templates = Frontend::where('key','email.template')->get();
@@ -114,11 +102,6 @@ class EmailManagerController extends Controller
     }
 
 
-    /**
-     * Update the specified resource in storage.
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Request $request,$id)
     {
         $request->validate([
@@ -172,25 +155,22 @@ class EmailManagerController extends Controller
         ]);
 
         $settings = GeneralSetting::first();
+        $users = User::when($request->audience ==1,
+            fn($query) =>  $query->where('is_admin','<>',1)
+            ->where('id','<>',Auth::id())
+            ->where('email_verified_at','<>',NULL)->get(['email','name']))
+            ->when($request->audience ==2 ,
+                fn($query) => $query->where('is_admin','<>',1)
+                ->where('id','<>',Auth::id())
+                ->where('email_verified_at',NULL)->get(['email','name']))
+            ->when($request->audience ==3,
+                fn($query) => $query->where('is_admin','<>',1)
+                ->where('id','<>',Auth::id())
+                ->where('email_verified_at',NULL)->get(['email','name']))
+            ->when($request->audience ==4,
+                fn($query) => $query->whereNotNull('email')->get(['email','name']));
 
-        if($request->audience ==1){
-            $users =  $users = User::where('is_admin','<>',1)
-                ->where('id','<>',Auth::id())
-                ->where('email_verified_at','<>',NULL)->get(['email','name']);
-        }
-        if($request->audience ==2){
-            $users =  $users = User::where('is_admin','<>',1)
-                ->where('id','<>',Auth::id())
-                ->where('email_verified_at',NULL)->get(['email','name']);
-        }
-        if($request->audience ==3){
-            $users = User::where('is_admin','<>',1)
-                ->where('id','<>',Auth::id())
-                ->where('is_banned',1)->get(['email','name']);
-        }
-        if($request->audience ==4){
-            $users = User::all(['email','name']);
-        }
+
         //Custom Mail for single user
         if($request->audience ==5){
             $request->validate([

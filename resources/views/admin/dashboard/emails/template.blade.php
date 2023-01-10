@@ -26,13 +26,13 @@
                     <tr>
                         <td>
                             <div class="text-primary">
-                                <h6>{{$template->value->subject}}</h6>
+                                <h6>{{$template->value->subject ?? null }}</h6>
                             </div>
                         </td>
                         <td>
                             <a href="{{ route('using.template',['id'=>$template->id]) }}" class="btn btn-info"><span class="ik ik-mail"></span></a>
                             <a href="{{ route('email.draftEdit',['id'=>$template->id]) }}" class="btn btn-primary"><span class="ik ik-edit-2"></span></a>
-                            <a href="#" data-toggle="modal" data-target="#delModal" data-id="{{$template->id}}" data-title="{{$template->value->subject}}" class="btn btn-danger"><span class="ik ik-trash-2"></span></a>
+                            <a href="#" data-toggle="modal" data-target="#delModal" data-id="{{$template->id}}" data-title="{{$template->value->subject ?? null }}" class="btn btn-danger"><span class="ik ik-trash-2"></span></a>
                         </td>
                     </tr>
                     @endforeach

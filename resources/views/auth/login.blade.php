@@ -22,7 +22,7 @@
                     <div class="py-5">
                         <div class="text-info">You can login using </div>
                         <div class="row">
-                            @if($facebook->value->status ==1)
+                            @if( !empty($facebook->value->status) && $facebook->value->status ==1)
                             <div class="col-md-2">
                                 <a href="{{ route('login.provider',['provider'=>'facebook']) }}" id="facebook">
                                     <div class="facebook"><img src="{{ asset('uploads/images/facebook.png') }}" width="40px" height="40px" alt="facebook"></div>
@@ -30,7 +30,7 @@
                             </div>
                             @endif
 
-                            @if($gmail->value->status ==1)
+                            @if(!empty($gmail->value->status) && $gmail->value->status ==1)
                             <div class="col-md-2">
                                 <a href="{{ route('login.provider',['provider'=>'google']) }}">
                                     <div class="gmail"><img src="{{ asset('uploads/images/gmail.png') }}" width="40px" height="40px" alt="gmail"></div>

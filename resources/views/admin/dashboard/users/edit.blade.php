@@ -33,7 +33,7 @@
 
                         <p class="clearfix">
                             <span class="float-left font-weight-bold">Role: </span>&nbsp;
-                            <span class="float-right justify-content-center text-primary">{{!empty($user->role->name) ? $user->role->name : "Unknown"}}</span>
+                            <span class="float-right justify-content-center text-primary">{{ $user->role->name ?? "Unknown"}}</span>
                         </p>
                         <p class="clearfix">
                             <span class="float-left font-weight-bold">Status: </span>&nbsp;

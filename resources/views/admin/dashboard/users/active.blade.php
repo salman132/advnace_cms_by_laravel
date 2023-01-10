@@ -26,7 +26,7 @@
                     <tr>
                         <td><img style="border-radius: 50%" width="50px" height="50px" src="{{ asset($user->profile_pic) }}" alt="{{$user->name}}"></td>
                         <td>{{$user->name}}</td>
-                        <td>{{!empty($user->role->name) ? $user->role->name : 'Unknown'}}</td>
+                        <td>{{ $user->role->name ?? 'Unknown'}}</td>
                         <td>{{$user->email}}</td>
                         <td>
                             <a href="{{ route('users.show',$user->id) }}" class="btn-sm btn-success"><span class="ik ik-info"></span></a>
